@@ -24,15 +24,10 @@ export class UserListComponent implements OnInit {
     const body = {
       firstName: 'mohanad',
       lastName: 'jayousi ',
-      email: 'jayss@gmail.com',
+      email: 'jay@gmail.com',
     };
-    
-      this.userSer
-        .createUser(body)
-        .subscribe((res) =>
-          console.log(res, 'rressssssssssssssssssssssssssssss')
-        );
- 
+
+    this.userSer.createUser(body).subscribe((res) => this.getUsers());
   }
 
   updateUser(id: any) {
@@ -52,5 +47,10 @@ export class UserListComponent implements OnInit {
     this.userSer.getUserById(strId).subscribe((res) => {
       console.log(res);
     });
+  }
+
+  speedUp(user: userPreview) {
+    this.userContainer = user;
+    
   }
 }
