@@ -9,7 +9,6 @@ import { UserService } from '../services/user.service';
 })
 export class UserListComponent implements OnInit {
   users: userPreview[] = [];
-  userContainer: any;
   constructor(private userSer: UserService) {}
 
   ngOnInit(): void {
@@ -24,10 +23,15 @@ export class UserListComponent implements OnInit {
     const body = {
       firstName: 'mohanad',
       lastName: 'jayousi ',
-      email: 'jay@gmail.com',
+      email: `${Math.random().toString(36).slice(2)}@gmail.com`,
     };
 
-    this.userSer.createUser(body).subscribe((res) => this.getUsers());
+    this.userSer.createUser(body).subscribe(
+      (res) => {
+        this.getUsers();
+      },
+      (err) => console.log(err)
+    );
   }
 
   updateUser(id: any) {
@@ -46,11 +50,9 @@ export class UserListComponent implements OnInit {
     const strId = id.toString();
     this.userSer.getUserById(strId).subscribe((res) => {
       console.log(res);
+      alert(
+        `id : ${res.id} \nFirst Name : ${res.firstName} \nLast Name : ${res.lastName}`
+      );
     });
-  }
-
-  speedUp(user: userPreview) {
-    this.userContainer = user;
-    
   }
 }
